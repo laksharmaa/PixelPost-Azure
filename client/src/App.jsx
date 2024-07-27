@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { Home, CreatePost } from './Pages';
-import {logo} from './assets';
+// import {logo} from './assets';
 import './App.css';
 
 function App() {
