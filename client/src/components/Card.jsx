@@ -1,8 +1,12 @@
 import React from 'react'
+import download from '../assets/download.png'
+import {downloadImage} from '../utils'
 
-const Card= () => {
+const Card= ({_id, name, prompt, photo}) => {
   return (
-    <div>Card</div>
+    <div className=''>
+      Card
+    </div>
   )
 }
 

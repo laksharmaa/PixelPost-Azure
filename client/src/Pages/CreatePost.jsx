@@ -20,15 +20,21 @@ const CreatePost = () => {
       try {
         setGeneratingImg(true);
         const response = await fetch('http://localhost:8080/api/v1/dalle', {
+          // const response = await fetch('https://api.openai.com/v1/images', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ prompt: form.prompt }),
         })
-        const data = await response.json();
-        setForm({ ...form, photo: `data:image/jpeg;base64,${data.image}` })
+
+        const data = await response.json();   //Object from dall-e
+        // console.log(data);
+
+
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` })
       } catch (error) {
+        // console.log(response); 
         alert(error);
       } finally {
         setGeneratingImg(false);
@@ -38,8 +44,29 @@ const CreatePost = () => {
     }
   }
 
-  const handleSubmit = () => {
-    // Add your form submission logic here
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (form.prompt && form.photo) {
+      setLoading(true);
+
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/post', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(form),
+        })
+        await response.json();
+        navigate('/');
+      } catch (err) {
+        alert("ERROR SHARING POST: ", err);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      alert("Please enter a prompt and generate an image");
+    }
   };
 
   const handleChange = (e) => {
