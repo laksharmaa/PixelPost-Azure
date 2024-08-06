@@ -1,17 +1,12 @@
-import React from 'react'
+import React from 'react';
 
 const FormField = ({ labelName, type, name, placeholder, value, handleChange, isSurpriseMe, handleSurpriseMe }) => {
-
-  // const handleSuurpriseMe = () => {
-
-  // }
-
   return (
     <div>
       <div className='flex items-center gap-2 mb-2'>
         <label
           htmlFor={name}
-          className='block text-sm font-medium text-gray-900'
+          className='block text-sm font-medium text-white'
         >
           {labelName}
         </label>
@@ -26,17 +21,17 @@ const FormField = ({ labelName, type, name, placeholder, value, handleChange, is
         )}
       </div>
       <input
-      type={type} 
-      id={name}
-      name={name}
-      className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#4669ff] focus:border-[#4669ff] outline-none block w-full p-3'
-      placeholder={placeholder}
-      value={value}
-      onChange={handleChange}
-      required
+        type={type}
+        id={name}
+        name={name}
+        className='bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-[#4669ff] focus:border-[#4669ff] outline-none block w-full p-3'
+        placeholder={placeholder}
+        value={value}
+        onChange={handleChange}
+        required
       />
     </div>
-  )
+  );
 }
 
 export default FormField;

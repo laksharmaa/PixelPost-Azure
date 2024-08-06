@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import preview from '../assets/preview.png'; // Corrected import statement
-
+import preview from '../assets/preview.png';
 import { getRandomPrompt } from '../utils';
 import { FormField, Loader } from '../components';
 
@@ -20,29 +19,24 @@ const CreatePost = () => {
       try {
         setGeneratingImg(true);
         const response = await fetch('http://localhost:8080/api/v1/dalle', {
-          // const response = await fetch('https://api.openai.com/v1/images', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ prompt: form.prompt }),
-        })
+        });
 
-        const data = await response.json();   //Object from dall-e
-        // console.log(data);
-
-
-        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` })
+        const data = await response.json();
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
       } catch (error) {
-        // console.log(response); 
         alert(error);
       } finally {
         setGeneratingImg(false);
       }
     } else {
-      alert("Please enter a prompt")
+      alert("Please enter a prompt");
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,7 +50,7 @@ const CreatePost = () => {
             'Content-type': 'application/json',
           },
           body: JSON.stringify(form),
-        })
+        });
         await response.json();
         navigate('/');
       } catch (err) {
@@ -79,10 +73,10 @@ const CreatePost = () => {
   };
 
   return (
-    <section className='max-w-7xl mx-auto'>
+    <section className='max-w-7xl mx-auto bg-gray-900 text-white min-h-screen p-8'>
       <div>
-        <h1 className='font-extrabold text-black text-[32px]'>Create</h1>
-        <p className='mt-2 text-[#666e75] text-[16px] max-w-[500px]'>
+        <h1 className='font-extrabold text-white text-[32px]'>Create</h1>
+        <p className='mt-2 text-[#d1d5db] text-[14px] max-w-[500px]'>
           Create imaginative and visually stunning images generated through AI and share them with the community.
         </p>
       </div>
@@ -96,6 +90,7 @@ const CreatePost = () => {
             placeholder="Lakshya Sharma"
             value={form.name}
             handleChange={handleChange}
+            className="bg-gray-800 text-white border border-gray-700 rounded-lg"
           />
 
           <FormField
@@ -107,9 +102,10 @@ const CreatePost = () => {
             handleChange={handleChange}
             isSurpriseMe={true}
             handleSurpriseMe={handleSurpriseMe}
+            className="bg-gray-800 text-white border border-gray-700 rounded-lg"
           />
 
-          <div className='relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center'>
+          <div className="relative bg-gray-800 border border-gray-700 text-gray-300 text-sm rounded-lg w-64 p-3 h-64 flex justify-center items-center">
             {form.photo ? (
               <img
                 src={form.photo}
@@ -129,9 +125,9 @@ const CreatePost = () => {
                 <Loader />
               </div>
             )}
-
           </div>
         </div>
+
         <div className='mt-5 flex gap-5'>
           <button
             type='button'
@@ -143,13 +139,14 @@ const CreatePost = () => {
         </div>
 
         <div className='mt-10'>
-          <p className='mt-2 text-[#666e75] text-[14px]'>Once you have created the image you want, you can share it with others in community</p>
+          <p className='mt-2 text-[#d1d5db] text-[14px]'>
+            Once you have created the image you want, you can share it with others in the community
+          </p>
           <button
             type='submit'
-            className='mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2,5 text-center'
+            className='mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'
           >
             {loading ? "Sharing..." : "Share with the community"}
-
           </button>
         </div>
       </form>
