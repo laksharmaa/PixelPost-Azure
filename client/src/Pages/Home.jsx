@@ -24,7 +24,7 @@ const Home = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8080/api/v1/post', {
+      const response = await fetch('http://pixelpost-tau.vercel.app/api/v1/post', {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
@@ -72,7 +72,7 @@ const Home = () => {
         <FormField 
           labelName="Search posts"
           type="text"
-          name="text"
+          name="text" 
           placeholder="Search..."
           value={searchText}
           handleChange={handleSearchChange}
