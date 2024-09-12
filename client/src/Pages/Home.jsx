@@ -24,7 +24,7 @@ const Home = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('https://localhost:8080/api/v1/post', {
+      const response = await fetch('https://pixelpost-tau.vercel.app/api/v1/post', {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
