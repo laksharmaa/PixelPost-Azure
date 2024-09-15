@@ -15,6 +15,7 @@ router.route('/').get((req, res) => {
 
 router.route('/').post(async (req, res) => {
     try {
+        console.log("Request Body: ", req.body);
         const { prompt } = req.body;
 
         const aiResponse = await openai.images.generate({

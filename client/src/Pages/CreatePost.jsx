@@ -1,27 +1,40 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react'; // Import Auth0 hook
 import preview from '../assets/preview.png';
 import { getRandomPrompt } from '../utils';
 import { FormField, Loader } from '../components';
 
 const CreatePost = () => {
+  const { getAccessTokenSilently } = useAuth0(); // Get the access token
   const navigate = useNavigate();
+
+  // State for form inputs
   const [form, setForm] = useState({
     name: '',
     prompt: '',
     photo: '',
   });
+
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Define the handleChange function to handle input changes
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const generateImage = async () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        const response = await fetch('https://pixelpost-tau.vercel.app/api/v1/dalle', {
+        const token = await getAccessTokenSilently(); // Get JWT token from Auth0
+
+        const response = await fetch('http://localhost:8080/api/v1/dalle', { // Ensure correct API endpoint
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
           },
           body: JSON.stringify({ prompt: form.prompt }),
         });
@@ -38,23 +51,36 @@ const CreatePost = () => {
     }
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (form.prompt && form.photo) {
       setLoading(true);
-
       try {
-        const response = await fetch('https://pixelpost-tau.vercel.app/api/v1/post', {
+        const token = await getAccessTokenSilently(); // Get token
+        console.log("Access Token:", token); // Log the token
+  
+        const response = await fetch('http://localhost:8080/api/v1/post', { // Use http:// for local development
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
+            'Authorization': `Bearer ${token}`, // Include token in the request
           },
           body: JSON.stringify(form),
         });
-        await response.json();
-        navigate('/');
+  
+        const data = await response.json();
+        console.log("Response data:", data); // Log the response data
+  
+        if (response.ok) {
+          navigate('/');
+        } else {
+          console.error("Error Response:", data);
+          alert("Error sharing post: " + data.message);
+        }
       } catch (err) {
-        alert("ERROR SHARING POST: ", err);
+        console.error("Error:", err); // Log any error that occurs
+        alert("ERROR SHARING POST: " + err);
       } finally {
         setLoading(false);
       }
@@ -62,10 +88,7 @@ const CreatePost = () => {
       alert("Please enter a prompt and generate an image");
     }
   };
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  
 
   const handleSurpriseMe = () => {
     const randomPrompt = getRandomPrompt(form.prompt);
