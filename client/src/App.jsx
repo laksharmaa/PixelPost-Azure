@@ -1,6 +1,7 @@
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react'; // Import Auth0 hook
 import { Home, CreatePost } from './Pages';
+import PrivateRoute from './Pages/PrivateRoute'; // Import PrivateRoute
 
 function App() {
   const { loginWithPopup, logout, isAuthenticated } = useAuth0(); // Use Auth0 hook for login/logout
@@ -43,7 +44,16 @@ function App() {
       <main className='sm:p-8 px-4 py-8 w-full bg-gray-800 text-white min-h-[calc(100vh-73px)]'>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/create-post" element={<CreatePost />} />
+
+          {/* Protect the /create-post route */}
+          <Route
+            path="/create-post"
+            element={
+              <PrivateRoute>
+                <CreatePost />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </main>
     </>
