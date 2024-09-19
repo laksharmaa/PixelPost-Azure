@@ -9,7 +9,6 @@ const CreatePost = () => {
   const { getAccessTokenSilently } = useAuth0(); // Get the access token
   const navigate = useNavigate();
 
-  // State for form inputs
   const [form, setForm] = useState({
     name: '',
     prompt: '',
@@ -19,7 +18,6 @@ const CreatePost = () => {
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Define the handleChange function to handle input changes
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -51,7 +49,6 @@ const CreatePost = () => {
     }
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (form.prompt && form.photo) {
@@ -59,8 +56,9 @@ const CreatePost = () => {
       try {
         const token = await getAccessTokenSilently(); // Get token
         console.log("Access Token:", token); // Log the token
-  
-        const response = await fetch('http://localhost:8080/api/v1/post', { // Use http:// for local development
+
+        // Send the post request to store the user-generated post in the correct endpoint
+        const response = await fetch('http://localhost:8080/api/v1/user-post', { // Note the changed endpoint
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
@@ -68,10 +66,10 @@ const CreatePost = () => {
           },
           body: JSON.stringify(form),
         });
-  
+
         const data = await response.json();
         console.log("Response data:", data); // Log the response data
-  
+
         if (response.ok) {
           navigate('/');
         } else {
@@ -88,7 +86,6 @@ const CreatePost = () => {
       alert("Please enter a prompt and generate an image");
     }
   };
-  
 
   const handleSurpriseMe = () => {
     const randomPrompt = getRandomPrompt(form.prompt);

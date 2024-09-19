@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.1",
+    "@mui/material": "^6.1.1",
     "client": "file:",
     "file-saver": "^2.0.5",
     "react": "^18.3.1",
