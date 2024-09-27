@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+data:
+  VITE_AUTH0_DOMAIN: "laksharmaa.us.auth0.com"
+  VITE_AUTH0_AUDIENCE: "http://localhost:8080/"

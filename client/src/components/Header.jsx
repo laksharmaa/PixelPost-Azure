@@ -8,8 +8,15 @@ const Header = () => {
   const { loginWithPopup, logout, isAuthenticated } = useAuth0();
   const location = useLocation();
 
+  const linkStyle = (path) => ({
+    textDecoration: location.pathname === path ? 'underline' : 'none',
+    textDecorationColor: location.pathname === path ? 'white' : 'none',
+    color: 'inherit',
+    marginRight: '16px'
+  });
+
   return (
-    <AppBar position="static" style={{ backgroundColor: '#1a202c' }}>
+    <AppBar position="sticky" style={{ backgroundColor: '#111827' }}>
       <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box style={{ display: 'flex', alignItems: 'center' }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -22,16 +29,22 @@ const Header = () => {
 
           {isAuthenticated && (
             <>
-              {location.pathname !== '/profile' && (
-                <Button color="inherit" component={Link} to="/profile">
-                  My Profile
-                </Button>
-              )}
-              {location.pathname !== '/create-post' && (
-                <Button color="inherit" component={Link} to="/create-post">
-                  Create Post
-                </Button>
-              )}
+              <Button
+                color="inherit"
+                component={Link}
+                to="/profile"
+                style={linkStyle('/profile')}
+              >
+                My Profile
+              </Button>
+              <Button
+                color="inherit"
+                component={Link}
+                to="/create-post"
+                style={linkStyle('/create-post')}
+              >
+                Create Post
+              </Button>
             </>
           )}
         </Box>
@@ -42,8 +55,8 @@ const Header = () => {
               Log Out
             </Button>
           ) : (
-            <Button color="success" variant="contained" onClick={() => loginWithPopup({ connection: 'google-oauth2' })}>
-              Log In with Google
+            <Button color="primary" variant="contained" onClick={() => loginWithPopup({ connection: 'google-oauth2' })}>
+              Log In
             </Button>
           )}
         </Box>

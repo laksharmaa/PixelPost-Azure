@@ -1,2 +1,24 @@
 .env
 node_modules
+
+# Logs
+logs/
+*.log
+
+# Docker
+docker-compose.override.yml
+Dockerfile*
+
+# VS Code settings
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Minikube and Kubernetes
+.kube/
+minikube/
+
+# Build directory
+build/

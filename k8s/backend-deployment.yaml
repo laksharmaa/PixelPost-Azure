@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: laksharmaa/backend-image:latest
+          ports:
+            - containerPort: 8080
+          env:
+            # Environment variables from ConfigMap
+            - name: MONGODB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: MONGODB_URL
+            - name: AUTH0_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: AUTH0_DOMAIN
+            - name: AUTH0_AUDIENCE
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: AUTH0_AUDIENCE
+
+            # Environment variables from Secret
+            - name: GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: GOOGLE_CLIENT_ID
+            - name: GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: GOOGLE_CLIENT_SECRET
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: OPENAI_API_KEY
+            - name: CLOUDINARY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: CLOUDINARY_API_KEY
+            - name: CLOUDINARY_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: CLOUDINARY_API_SECRET
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: CLIENT_SECRET
+            - name: AUTH0_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: backend-env-secret
+                  key: AUTH0_CLIENT_ID

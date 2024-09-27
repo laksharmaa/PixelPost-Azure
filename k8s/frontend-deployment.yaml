@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: laksharmaa/frontend-image:latest
+          ports:
+            - containerPort: 80
+          env:
+            # Environment variables from ConfigMap
+            - name: VITE_AUTH0_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: VITE_AUTH0_DOMAIN
+            - name: VITE_AUTH0_AUDIENCE
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: VITE_AUTH0_AUDIENCE
+
+            # Environment variables from Secret
+            - name: VITE_AUTH0_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: frontend-env-secret
+                  key: VITE_AUTH0_CLIENT_ID
+            - name: VITE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: frontend-env-secret
+                  key: VITE_CLIENT_SECRET

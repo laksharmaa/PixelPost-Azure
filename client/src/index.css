@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* Or whatever your background color/image is */
+  }
+
 * {
     font-family: 'Inter', sans-serif;
 }
@@ -13,11 +19,11 @@
     }
 }
 
-.prompt::-webkit-scrollbar {
+/* .prompt::-webkit-scrollbar {
     width: 5px;
 }
  
 .prompt::-webkit-scrollbar-thumb {
   background-color: #666e75;
   border-radius: 5px;
-}
+} */
