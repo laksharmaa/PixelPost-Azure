@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: backend-config
-data:
-  MONGODB_URL: "mongodb+srv://laksharmaa:lakshya0005@atlascluster.0lak3gl.mongodb.net/"
-  AUTH0_DOMAIN: "laksharmaa.us.auth0.com"
-  AUTH0_AUDIENCE: "http://localhost:8080/"
