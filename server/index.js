@@ -13,7 +13,8 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-  'http://localhost:5173', // Your local frontend development URL
+  'https://pixelpost-opal.vercel.app/', // Production frontend URL
+  'http://localhost:5173', // Local frontend development URL
   'http://127.0.0.1:5173', // If you access it via 127.0.0.1
   'http://127.0.0.1:32005' // The port you use to access frontend on minikube
 ];
