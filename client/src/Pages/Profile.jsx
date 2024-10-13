@@ -14,7 +14,7 @@ const Profile = () => {
       const token = await getAccessTokenSilently();  // Get JWT token
       console.log('Access Token:', token);  // Log the token for debugging
 
-      const response = await fetch('http://localhost:8080/api/v1/user-post', {
+      const response = await fetch('https://pixelpost.onrender.com/api/v1/user-post', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
