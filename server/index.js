@@ -12,31 +12,13 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = [
-  'https://pixelpost-r99e8o8um-lakshya-sharmas-projects-5797995c.vercel.app/', // Vercel frontend deployed URL
-  'https://pixelpost-l5ckzvvd9-lakshya-sharmas-projects-5797995c.vercel.app',
-  'http://localhost:5173', // Local frontend development URL
-  'http://127.0.0.1:5173', // If you access it via 127.0.0.1
-  'http://127.0.0.1:32005' // The port you use to access frontend on minikube
-];
-
+// Allow all origins
 const corsOptions = {
-  origin: function (origin, callback) {
-    console.log('Origin:', origin);  // Log the origin of the incoming request
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      console.error('CORS Error: Not allowed by CORS');
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  optionsSuccessStatus: 200
+  origin: '*',  // Allow all origins
+  optionsSuccessStatus: 200,
 };
 
-
 app.use(cors(corsOptions));
-
 
 app.use(express.json({ limit: '50mb' }));
 
