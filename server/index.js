@@ -12,13 +12,31 @@ dotenv.config();
 
 const app = express();
 
-// Allow all origins
+// // Allow all origins
+// const corsOptions = {
+//   origin: '*',  // Allow all origins
+//   optionsSuccessStatus: 200,
+// };
+
+// app.use(cors(corsOptions));
+
+const allowedOrigins = [
+  'https://pixelpost-opal.vercel.app',
+  'http://localhost:5173',
+];
+
 const corsOptions = {
-  origin: '*',  // Allow all origins
-  optionsSuccessStatus: 200,
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
 };
 
 app.use(cors(corsOptions));
+
 
 app.use(express.json({ limit: '50mb' }));
 
