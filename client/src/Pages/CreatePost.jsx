@@ -26,7 +26,9 @@ const CreatePost = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        const token = await getAccessTokenSilently(); // Get JWT token from Auth0
+        const token = await getAccessTokenSilently({
+          audience: import.meta.env.VITE_AUTH0_AUDIENCE, // Access the audience from the .env file
+        }); // Get JWT token from Auth0
 
         const response = await fetch('https://pixelpost.onrender.com/api/v1/dalle', { // Ensure correct API endpoint
           method: 'POST',
@@ -54,7 +56,9 @@ const CreatePost = () => {
     if (form.prompt && form.photo) {
       setLoading(true);
       try {
-        const token = await getAccessTokenSilently(); // Get token
+        const token = await getAccessTokenSilently({
+          audience: import.meta.env.VITE_AUTH0_AUDIENCE, // Access the audience from the .env file
+        }); // Get token
         console.log("Access Token:", token); // Log the token
 
         // Send the post request to store the user-generated post in the correct endpoint

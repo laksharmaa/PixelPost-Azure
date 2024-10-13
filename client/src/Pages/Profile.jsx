@@ -11,7 +11,9 @@ const Profile = () => {
   const fetchUserPosts = async () => {
     setLoading(true);
     try {
-      const token = await getAccessTokenSilently();  // Get JWT token
+      const token = await getAccessTokenSilently({
+        audience: import.meta.env.VITE_AUTH0_AUDIENCE, // Access the audience from the .env file
+      });  // Get JWT token
       console.log('Access Token:', token);  // Log the token for debugging
 
       const response = await fetch('https://pixelpost.onrender.com/api/v1/user-post', {
