@@ -13,6 +13,7 @@ const Profile = () => {
     try {
       const token = await getAccessTokenSilently({
         audience: import.meta.env.VITE_AUTH0_AUDIENCE, // Access the audience from the .env file
+        scope: "openid profile email"
       });  // Get JWT token
       console.log('Access Token:', token);  // Log the token for debugging
 

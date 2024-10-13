@@ -28,6 +28,7 @@ const CreatePost = () => {
         setGeneratingImg(true);
         const token = await getAccessTokenSilently({
           audience: import.meta.env.VITE_AUTH0_AUDIENCE, // Access the audience from the .env file
+          scope: "openid profile email" 
         }); // Get JWT token from Auth0
 
         const response = await fetch('https://pixelpost.onrender.com/api/v1/dalle', { // Ensure correct API endpoint
@@ -58,6 +59,7 @@ const CreatePost = () => {
       try {
         const token = await getAccessTokenSilently({
           audience: import.meta.env.VITE_AUTH0_AUDIENCE, // Access the audience from the .env file
+          scope: "openid profile email"
         }); // Get token
         console.log("Access Token:", token); // Log the token
 
