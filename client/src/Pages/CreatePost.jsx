@@ -28,7 +28,7 @@ const CreatePost = () => {
         setGeneratingImg(true);
         const token = await getAccessTokenSilently(); // Get JWT token from Auth0
 
-        const response = await fetch('http://localhost:8080/api/v1/dalle', { // Ensure correct API endpoint
+        const response = await fetch('https://pixelpost.onrender.com/api/v1/dalle', { // Ensure correct API endpoint
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const CreatePost = () => {
         console.log("Access Token:", token); // Log the token
 
         // Send the post request to store the user-generated post in the correct endpoint
-        const response = await fetch('http://localhost:8080/api/v1/user-post', { // Note the changed endpoint
+        const response = await fetch('https://pixelpost.onrender.com/api/v1/user-post', { // Note the changed endpoint
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
